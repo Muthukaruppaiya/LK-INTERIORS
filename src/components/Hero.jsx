@@ -1,8 +1,14 @@
 import { useRef } from 'react'
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
-import { brand, galleryVersion } from '../data/content'
+import {
+  motion,
+  useMotionValue,
+  useScroll,
+  useSpring,
+  useTransform,
+} from 'framer-motion'
+import { brand } from '../data/content'
 
-const HERO_IMAGE = `/gallery/ig-04.jpg?v=${galleryVersion}`
+const HERO_IMAGE = '/gallery/transform-living-after.png?v=hero-clear'
 
 export default function Hero() {
   const ref = useRef(null)
@@ -10,6 +16,16 @@ export default function Hero() {
   const my = useMotionValue(0)
   const sx = useSpring(mx, { stiffness: 60, damping: 18 })
   const sy = useSpring(my, { stiffness: 60, damping: 18 })
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start start', 'end start'],
+  })
+
+  const fadeOut = useTransform(scrollYProgress, [0, 0.55], [1, 0])
+  const fadeSlide = useTransform(scrollYProgress, [0, 0.7], [0, 48])
+  const mediaScale = useTransform(scrollYProgress, [0, 1], [1.04, 1.12])
+  const veilDarken = useTransform(scrollYProgress, [0, 0.8], [1, 0.92])
 
   const layerFar = {
     x: useTransform(sx, [-0.5, 0.5], [28, -28]),
@@ -38,12 +54,15 @@ export default function Hero() {
         my.set(0)
       }}
     >
-      <motion.div className="hero__media" style={layerFar}>
+      <motion.div className="hero__media" style={{ ...layerFar, scale: mediaScale }}>
         <img src={HERO_IMAGE} alt="Modern living room designed by LK Interiors Studio" />
       </motion.div>
-      <div className="hero__veil" />
+      <motion.div className="hero__veil" style={{ opacity: veilDarken }} />
 
-      <div className="hero__content">
+      <motion.div
+        className="hero__content"
+        style={{ opacity: fadeOut, y: fadeSlide }}
+      >
         <motion.p
           className="hero__eyebrow"
           initial={{ opacity: 0, y: 16 }}
@@ -79,22 +98,14 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.28 }}
         >
-          <a className="btn btn--light" href="#work">
+          <a className="btn btn--light" href="#transform">
             View Projects
           </a>
           <a className="btn btn--ghost" href="#contact">
             Start a Project
           </a>
         </motion.div>
-      </div>
-
-      <motion.div
-        className="hero__orb"
-        style={layerNear}
-        aria-hidden
-        animate={{ rotateY: [0, 12, 0], rotateX: [0, -8, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-      />
+      </motion.div>
     </section>
   )
 }

@@ -16,8 +16,8 @@ export const brand = {
 export const navLinks = [
   { label: 'About', href: '#about' },
   { label: 'Services', href: '#services' },
-  { label: 'Work', href: '#work' },
   { label: 'Transform', href: '#transform' },
+  { label: 'Work', href: '#work' },
   { label: 'Contact', href: '#contact' },
 ]
 
