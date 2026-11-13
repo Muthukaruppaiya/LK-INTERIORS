@@ -1,0 +1,52 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  font-family: 'Figtree', sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+:root {
+  --ink: #1b1a17;
+  --ink-soft: #4a463f;
+  --paper: #f3f1ec;
+  --paper-deep: #e7e2d8;
+  --sand: #d4c4a8;
+  --sage: #6f7f6a;
+  --sage-deep: #4f5d4b;
+  --line: rgba(27, 26, 23, 0.12);
+  --white: #fbfaf7;
+  --shadow: 0 24px 60px rgba(27, 26, 23, 0.18);
+  --radius: 18px;
+  --nav-h: 76px;
+  --max: 1180px;
+  --display: Syne, sans-serif;
+}
